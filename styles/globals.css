@@ -3,3 +3,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-[20px] border border-transparent focus:outline-none;
+  }
+
+  .wrapper {
+    @apply mx-auto w-full max-w-7xl px-12 py-4;
+  }
+}
