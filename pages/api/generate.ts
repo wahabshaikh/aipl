@@ -28,7 +28,7 @@ export default async function handler(
 
   const result = completion.data.choices[0].text?.trim() as string;
 
-  createRecord(keyword, result);
+  const recordId = await createRecord(keyword, result);
 
-  res.status(200).json({ result });
+  res.status(200).json({ recordId, result });
 }

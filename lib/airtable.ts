@@ -8,18 +8,37 @@ if (!baseId) throw new Error(`Please add AIRTABLE_BASE_ID to .env!`);
 
 const base = new Airtable({ apiKey }).base(baseId);
 
-export function createRecord(keyword: string, result: string) {
-  base("Requests").create(
+export async function createRecord(keyword: string, result: string) {
+  return new Promise((resolve, reject) => {
+    base("Requests").create(
+      {
+        fld2OGu9YkWcWiw4h: keyword,
+        fldOqVeAShs6GDTub: result,
+      },
+      function (err, record) {
+        if (err) {
+          console.error(err);
+          reject(err);
+        }
+        console.log(record?.getId());
+        resolve(record?.id);
+      }
+    );
+  });
+}
+
+export function updateRecord(recordId: string, feedback: "liked" | "disliked") {
+  base("Requests").update(
+    recordId,
     {
-      fld2OGu9YkWcWiw4h: keyword,
-      fldOqVeAShs6GDTub: result,
+      fldMRerxGzXg6lYyw: feedback,
     },
     function (err, record) {
       if (err) {
         console.error(err);
         return;
       }
-      console.log(record?.getId());
+      console.log(record?.getId(), record?.get("Feedback"));
     }
   );
 }
