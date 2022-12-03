@@ -76,11 +76,7 @@ const Home: NextPage = () => {
             <div className="relative h-full">
               <p>{pickupLine}</p>
               <div className="absolute bottom-0 right-0 space-x-2">
-                <FacebookShareButton
-                  url={shareUrl}
-                  quote={pickupLine}
-                  className="Demo__some-network__share-button"
-                >
+                <FacebookShareButton url={shareUrl} quote={pickupLine}>
                   <FacebookIcon size={32} round />
                 </FacebookShareButton>
 

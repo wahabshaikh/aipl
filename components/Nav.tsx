@@ -14,7 +14,7 @@ export default function Nav() {
       <a
         href="https://gumroad.com/"
         target="_blank"
-        className="btn border-2 border-black/5 bg-black/5 px-4 py-2 text-xs font-medium text-black/50 hover:bg-black/10 sm:text-base"
+        className="btn border-2 border-brand px-4 py-2 text-xs font-medium text-brand hover:bg-brand/10 sm:text-base"
       >
         buy on gumroad
       </a>

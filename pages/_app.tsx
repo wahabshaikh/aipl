@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Component {...pageProps} />)
+      <Component {...pageProps} />
       <Toaster />
     </>
   );
