@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
+import { createRecord } from "../../lib/airtable";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -12,9 +13,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const keyword = req.body.keyword as string;
+
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Write a punny pickup line on ${req.body.keyword}`,
+    prompt: `Write a punny pickup line on ${keyword}`,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
@@ -23,5 +26,9 @@ export default async function handler(
     max_tokens: 256,
   });
 
-  res.status(200).json({ result: completion.data });
+  const result = completion.data.choices[0].text as string;
+
+  createRecord(keyword, result);
+
+  res.status(200).json({ result });
 }

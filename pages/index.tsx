@@ -33,9 +33,7 @@ const Home: NextPage = () => {
 
       const data = await response.json();
 
-      const pickupLine = data.result.choices[0].text as string;
-
-      setPickupLine(pickupLine);
+      setPickupLine(data.result);
     } catch (error) {
       console.error(error);
     } finally {
