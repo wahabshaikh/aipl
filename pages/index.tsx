@@ -12,6 +12,7 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const generatePickupLine = async (keyword: string) => {
+    setPickupLine("");
     setIsLoading(true);
 
     try {
@@ -32,10 +33,7 @@ const Home: NextPage = () => {
 
       const data = await response.json();
 
-      const pickupLine = `Are you a ${keyword}? Because`.concat(
-        " ",
-        (data.result.choices[0].text as string).split("\n")[0]
-      );
+      const pickupLine = data.result.choices[0].text as string;
 
       setPickupLine(pickupLine);
     } catch (error) {
@@ -49,12 +47,10 @@ const Home: NextPage = () => {
     e.preventDefault();
 
     await generatePickupLine(keyword);
-
-    setKeyword("");
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col justify-between">
       <Head>
         <title>AI Pickup Lines</title>
         <link rel="icon" href="/favicon.ico" />

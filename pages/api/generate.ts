@@ -14,7 +14,7 @@ export default async function handler(
 ) {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Are you a ${req.body.keyword}? Because`,
+    prompt: `Write a punny pickup line on ${req.body.keyword}`,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
