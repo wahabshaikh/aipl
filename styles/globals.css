@@ -6,10 +6,14 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center rounded-[20px] border border-transparent focus:outline-none;
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-[20px] border border-transparent focus:outline-none;
+  }
+
+  .btn-primary {
+    @apply bg-brand px-8 py-4 text-2xl font-bold text-white shadow-lg shadow-brand/50 hover:shadow-none;
   }
 
   .wrapper {
-    @apply mx-auto w-full max-w-7xl px-12 py-4;
+    @apply mx-auto w-full max-w-7xl px-8 py-4 sm:px-12;
   }
 }
