@@ -26,7 +26,7 @@ export default async function handler(
     max_tokens: 256,
   });
 
-  const result = completion.data.choices[0].text as string;
+  const result = completion.data.choices[0].text?.trim() as string;
 
   createRecord(keyword, result);
 

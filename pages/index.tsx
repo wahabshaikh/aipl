@@ -2,6 +2,18 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { FormEventHandler, useState } from "react";
 import toast from "react-hot-toast";
+import {
+  TwitterShareButton,
+  TwitterIcon,
+  FacebookShareButton,
+  FacebookIcon,
+  TelegramShareButton,
+  TelegramIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  RedditShareButton,
+  RedditIcon,
+} from "react-share";
 import randomWords from "random-words";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
@@ -10,6 +22,8 @@ const Home: NextPage = () => {
   const [keyword, setKeyword] = useState("");
   const [pickupLine, setPickupLine] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const shareUrl = "https://aipickuplines.com";
 
   const generatePickupLine = async (keyword: string) => {
     setPickupLine("");
@@ -59,7 +73,38 @@ const Home: NextPage = () => {
       <main className="wrapper grid flex-1 gap-16 py-8 sm:grid-cols-2">
         <section className="flex h-full w-full items-center rounded-[20px] bg-brand px-8 py-6 text-3xl font-bold text-white shadow-lg shadow-brand">
           {!!pickupLine ? (
-            <p>{pickupLine}</p>
+            <div className="relative h-full">
+              <p>{pickupLine}</p>
+              <div className="absolute bottom-0 right-0 space-x-2">
+                <FacebookShareButton
+                  url={shareUrl}
+                  quote={pickupLine}
+                  className="Demo__some-network__share-button"
+                >
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
+
+                <TwitterShareButton url={shareUrl} title={pickupLine}>
+                  <TwitterIcon size={32} round />
+                </TwitterShareButton>
+
+                <TelegramShareButton url={shareUrl} title={pickupLine}>
+                  <TelegramIcon size={32} round />
+                </TelegramShareButton>
+
+                <WhatsappShareButton
+                  url={shareUrl}
+                  title={pickupLine}
+                  separator=":: "
+                >
+                  <WhatsappIcon size={32} round />
+                </WhatsappShareButton>
+
+                <RedditShareButton url={shareUrl} title={pickupLine}>
+                  <RedditIcon size={32} round />
+                </RedditShareButton>
+              </div>
+            </div>
           ) : (
             <p>
               Are you a <span>{keyword || "____"}</span>?
