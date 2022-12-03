@@ -1,23 +1,56 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { FormEventHandler, useState } from "react";
+import toast from "react-hot-toast";
+import randomWords from "random-words";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 
 const Home: NextPage = () => {
   const [keyword, setKeyword] = useState("");
   const [pickupLine, setPickupLine] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const generatePickupLine = async (keyword: string) => {
-    setPickupLine(
-      `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit error, aperiam facere impedit quis libero ex vel nesciunt id, odio magnam nemo possimus ullam ab? Autem debitis alias accusantium est?`
-    );
+    setIsLoading(true);
+
+    try {
+      const response = await toast.promise(
+        fetch("/api/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ keyword }),
+        }),
+        {
+          loading: `Generating a pickup line...`,
+          success: `Your pickup line is generated!`,
+          error: `Oops... something went wrong!`,
+        }
+      );
+
+      const data = await response.json();
+
+      const pickupLine = `Are you a ${keyword}? Because`.concat(
+        " ",
+        (data.result.choices[0].text as string).split("\n")[0]
+      );
+
+      setPickupLine(pickupLine);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     await generatePickupLine(keyword);
+
+    setKeyword("");
   };
 
   return (
@@ -58,15 +91,20 @@ const Home: NextPage = () => {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary w-full">
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+              disabled={isLoading}
+            >
               Generate
             </button>
           </form>
           <fieldset className="border-t border-black">
             <legend className="mx-auto px-4 text-2xl">OR</legend>
             <button
-              onClick={() => generatePickupLine("random")}
+              onClick={() => generatePickupLine(randomWords(1)[0])}
               className="btn btn-primary mt-4 w-full"
+              disabled={isLoading}
             >
               Surprise me!
             </button>

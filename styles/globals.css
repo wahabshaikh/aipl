@@ -6,7 +6,7 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center whitespace-nowrap rounded-[20px] border border-transparent focus:outline-none;
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-[20px] border border-transparent focus:outline-none disabled:bg-black/5 disabled:shadow-none;
   }
 
   .btn-primary {
