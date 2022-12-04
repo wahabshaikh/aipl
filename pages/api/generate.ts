@@ -17,7 +17,7 @@ export default async function handler(
 
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Write a punny pickup line on ${keyword}`,
+    prompt: `Write a punny pickup line on ${keyword}.`,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
