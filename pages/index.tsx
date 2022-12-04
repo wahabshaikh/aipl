@@ -18,6 +18,7 @@ import {
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { PICKUP_LINES } from "../data/pickup-lines";
+import Seo from "../components/Seo";
 
 const Home: NextPage = () => {
   const [recordId, setRecordId] = useState("");
@@ -97,10 +98,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex min-h-screen w-full flex-col justify-between">
-      <Head>
-        <title>AI Pickup Lines</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Seo />
 
       <Nav />
 
