@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { FormEventHandler, useEffect, useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import toast from "react-hot-toast";
 import { TbThumbUp, TbThumbDown } from "react-icons/tb";
 import {
@@ -19,6 +20,7 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { PICKUP_LINES } from "../data/pickup-lines";
 import Seo from "../components/Seo";
+import { FiCopy } from "react-icons/fi";
 
 const Home: NextPage = () => {
   const [recordId, setRecordId] = useState("");
@@ -105,7 +107,17 @@ const Home: NextPage = () => {
       <main className="wrapper grid flex-1 gap-16 py-8 sm:grid-cols-2">
         <section className="flex h-full w-full items-center rounded-[20px] bg-brand px-8 py-6 text-3xl font-bold text-white shadow-lg shadow-brand">
           <div className="flex h-full flex-col justify-between">
-            <p className="my-auto">{pickupLine}</p>
+            <p className="my-auto">
+              {pickupLine}{" "}
+              <CopyToClipboard
+                text={pickupLine}
+                onCopy={() => toast.success("Copied to clipboard!")}
+              >
+                <button>
+                  <FiCopy className="h-6 w-6" />
+                </button>
+              </CopyToClipboard>
+            </p>
             <div className="flex items-center justify-between">
               <div className="space-x-2">
                 <FacebookShareButton url={shareUrl} quote={pickupLine}>
