@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { TbThumbUp, TbThumbDown } from "react-icons/tb";
 import {
@@ -15,9 +15,9 @@ import {
   RedditShareButton,
   RedditIcon,
 } from "react-share";
-import randomWords from "random-words";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import { PICKUP_LINES } from "../data/pickup-lines";
 
 const Home: NextPage = () => {
   const [recordId, setRecordId] = useState("");
@@ -27,8 +27,14 @@ const Home: NextPage = () => {
 
   const shareUrl = "https://aipickuplines.com";
 
+  useEffect(() => {
+    setPickupLine(getRandomPickupLine());
+  }, []);
+
+  const getRandomPickupLine = () =>
+    PICKUP_LINES[Math.floor(Math.random() * PICKUP_LINES.length)].result;
+
   const generatePickupLine = async (keyword: string) => {
-    setPickupLine("");
     setIsLoading(true);
 
     try {
@@ -100,51 +106,44 @@ const Home: NextPage = () => {
 
       <main className="wrapper grid flex-1 gap-16 py-8 sm:grid-cols-2">
         <section className="flex h-full w-full items-center rounded-[20px] bg-brand px-8 py-6 text-3xl font-bold text-white shadow-lg shadow-brand">
-          {!!pickupLine ? (
-            <div className="flex h-full flex-col justify-between">
-              <p className="my-auto">{pickupLine}</p>
-              <div className="flex items-center justify-between">
-                <div className="space-x-2">
-                  <FacebookShareButton url={shareUrl} quote={pickupLine}>
-                    <FacebookIcon size={32} round />
-                  </FacebookShareButton>
+          <div className="flex h-full flex-col justify-between">
+            <p className="my-auto">{pickupLine}</p>
+            <div className="flex items-center justify-between">
+              <div className="space-x-2">
+                <FacebookShareButton url={shareUrl} quote={pickupLine}>
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
 
-                  <TwitterShareButton url={shareUrl} title={pickupLine}>
-                    <TwitterIcon size={32} round />
-                  </TwitterShareButton>
+                <TwitterShareButton url={shareUrl} title={pickupLine}>
+                  <TwitterIcon size={32} round />
+                </TwitterShareButton>
 
-                  <TelegramShareButton url={shareUrl} title={pickupLine}>
-                    <TelegramIcon size={32} round />
-                  </TelegramShareButton>
+                <TelegramShareButton url={shareUrl} title={pickupLine}>
+                  <TelegramIcon size={32} round />
+                </TelegramShareButton>
 
-                  <WhatsappShareButton
-                    url={shareUrl}
-                    title={pickupLine}
-                    separator=":: "
-                  >
-                    <WhatsappIcon size={32} round />
-                  </WhatsappShareButton>
+                <WhatsappShareButton
+                  url={shareUrl}
+                  title={pickupLine}
+                  separator=":: "
+                >
+                  <WhatsappIcon size={32} round />
+                </WhatsappShareButton>
 
-                  <RedditShareButton url={shareUrl} title={pickupLine}>
-                    <RedditIcon size={32} round />
-                  </RedditShareButton>
-                </div>
-                <div className="space-x-2">
-                  <button onClick={() => submitFeedback("liked")}>
-                    <TbThumbUp className="h-8 w-8" />
-                  </button>
-                  <button onClick={() => submitFeedback("disliked")}>
-                    <TbThumbDown className="h-8 w-8" />
-                  </button>
-                </div>
+                <RedditShareButton url={shareUrl} title={pickupLine}>
+                  <RedditIcon size={32} round />
+                </RedditShareButton>
+              </div>
+              <div className="space-x-2">
+                <button onClick={() => submitFeedback("liked")}>
+                  <TbThumbUp className="h-8 w-8" />
+                </button>
+                <button onClick={() => submitFeedback("disliked")}>
+                  <TbThumbDown className="h-8 w-8" />
+                </button>
               </div>
             </div>
-          ) : (
-            <p>
-              Are you a <span>{keyword || "____"}</span>?
-              <br /> Because...
-            </p>
-          )}
+          </div>
         </section>
 
         <section className="flex flex-col justify-center gap-4">
@@ -175,12 +174,7 @@ const Home: NextPage = () => {
           <fieldset className="border-t border-black">
             <legend className="mx-auto px-4 text-2xl">OR</legend>
             <button
-              onClick={async () => {
-                setKeyword("");
-                const keyword = randomWords(1)[0];
-
-                await generatePickupLine(keyword);
-              }}
+              onClick={() => setPickupLine(getRandomPickupLine())}
               className="btn btn-primary mt-4 w-full"
               disabled={isLoading}
             >
