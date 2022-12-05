@@ -11,7 +11,7 @@ export default function Modal({ count }: ModalProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (count === 1 || count % 5 === 0) {
+    if (count !== 0 && (count === 1 || count % 5 === 0)) {
       setOpen(true);
     }
   }, [count]);
