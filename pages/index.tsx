@@ -57,6 +57,11 @@ const Home: NextPage = () => {
 
       const result = data.result as string;
 
+      if (!result)
+        toast.error(
+          `Oops! Too much load currently... please try 'Surprise Me!' in the meanwhile!`
+        );
+
       const { data: record, error } = await supabase
         .from("requests")
         .insert({ keyword, result })

@@ -12,20 +12,27 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const keyword = req.body.keyword as string;
+  try {
+    const keyword = req.body.keyword as string;
 
-  const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: `Write a punny pickup line on ${keyword}.`,
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    best_of: 1,
-    max_tokens: 256,
-  });
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: `Write a punny pickup line on ${keyword}.`,
+      temperature: 0.7,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      best_of: 1,
+      max_tokens: 256,
+    });
 
-  const result = completion.data.choices[0].text?.trim() as string;
+    const result = completion.data.choices[0].text?.trim();
 
-  res.status(200).json({ result });
+    if (!result) throw new Error(`Rate limit exceeded`);
+
+    res.status(200).json({ result });
+  } catch (error) {
+    console.error(error);
+    res.status(408).json({ result: "" });
+  }
 }
