@@ -110,16 +110,17 @@ const Home: NextPage = () => {
 
       <main className="wrapper grid h-full w-full flex-1 gap-16 py-8 lg:grid-cols-2">
         <section className="flex h-full w-full items-center justify-center rounded-[20px] bg-brand px-8 py-6 text-white shadow-lg shadow-brand/50">
-          <div className="flex h-full flex-col justify-between">
+          <div className="flex h-full w-full flex-col justify-between">
             <p className="my-auto text-2xl font-bold">{pickupLine}</p>
 
             <div className="mt-8 flex items-center justify-between">
               <div className="space-x-2">
                 <button
+                  data-tip="Like"
                   onClick={async () =>
                     await toast.promise(submitFeedback("liked"), {
                       loading: `Submitting feedback...`,
-                      success: `Glad you liked the pickup line!`,
+                      success: `Thanks for the feedback... we're glad you liked the pickup line!`,
                       error: `Oops... something went wrong!`,
                     })
                   }
@@ -127,10 +128,11 @@ const Home: NextPage = () => {
                   <TbThumbUp className="h-6 w-6" />
                 </button>
                 <button
+                  data-tip="Dislike"
                   onClick={async () =>
                     await toast.promise(submitFeedback("disliked"), {
                       loading: `Submitting feedback...`,
-                      success: `We're sorry you didn't like the pickup line. We'll improve on it!`,
+                      success: `Thanks for the feedback... we're sorry you didn't like the pickup line!`,
                       error: `Oops... something went wrong!`,
                     })
                   }
@@ -143,20 +145,29 @@ const Home: NextPage = () => {
                   text={pickupLine}
                   onCopy={() => toast.success("Copied to clipboard!")}
                 >
-                  <button>
+                  <button data-tip="Copy">
                     <TbCopy className="h-6 w-6" />
                   </button>
                 </CopyToClipboard>
 
-                <FacebookShareButton url={shareUrl} quote={pickupLine}>
+                <FacebookShareButton
+                  data-tip="Share on Facebook"
+                  url={shareUrl}
+                  quote={pickupLine}
+                >
                   <TbBrandFacebook className="h-6 w-6" />
                 </FacebookShareButton>
 
-                <TwitterShareButton url={shareUrl} title={pickupLine}>
+                <TwitterShareButton
+                  data-tip="Share on Twitter"
+                  url={shareUrl}
+                  title={pickupLine}
+                >
                   <TbBrandTwitter className="h-6 w-6" />
                 </TwitterShareButton>
 
                 <WhatsappShareButton
+                  data-tip="Share on WhatsApp"
                   url={shareUrl}
                   title={pickupLine}
                   separator=":: "

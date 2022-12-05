@@ -12,6 +12,7 @@ export default function Nav() {
         />
       </Link>
       <a
+        data-tip="Lifetime access to 1000s of AI-generated pickup lines!"
         href="https://wahabshaikh.gumroad.com/l/aipickuplines"
         target="_blank"
         className="btn whitespace-nowrap border-2 border-brand px-4 py-2 text-xs font-medium text-brand hover:bg-brand/10 sm:text-base"
