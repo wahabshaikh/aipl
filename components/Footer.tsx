@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="wrapper text-center text-black/70">
+    <footer className="mx-auto mt-16 w-full max-w-7xl px-8 pb-4 text-center text-black/70 sm:px-12">
       <p>
         Made with ❤️ by{" "}
         <span className="whitespace-nowrap">
