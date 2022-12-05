@@ -20,12 +20,14 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { supabase } from "../lib/supabase";
+import Modal from "../components/Modal";
 
 const Home: NextPage = () => {
   const [recordId, setRecordId] = useState<number>();
   const [keyword, setKeyword] = useState("");
   const [pickupLine, setPickupLine] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
   const shareUrl = "https://aipickuplines.com";
 
@@ -76,6 +78,7 @@ const Home: NextPage = () => {
       console.error(error);
     } finally {
       setIsLoading(false);
+      setCount(count + 1);
     }
   };
 
@@ -222,6 +225,7 @@ const Home: NextPage = () => {
           </fieldset>
         </section>
       </main>
+      <Modal count={count} />
 
       <Footer />
     </div>
