@@ -40,22 +40,20 @@ const Home: NextPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await toast.promise(
+      const data = await toast.promise(
         fetch("/api/generate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ keyword }),
-        }),
+        }).then((res) => res.json()),
         {
           loading: `Generating a pickup line for you...`,
-          success: `It's easy to be cheesy now!`,
-          error: `Oops... something went wrong!`,
+          success: `Your pickup line is ready. It's easy to be cheesy now!`,
+          error: `Oops! Too much load currently... please try 'Surprise Me!' in the meanwhile!`,
         }
       );
-
-      const data = await response.json();
 
       const result = data.result as string;
 
