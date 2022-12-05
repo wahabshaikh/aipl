@@ -19,9 +19,10 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
+import { supabase } from "../lib/supabase";
 
 const Home: NextPage = () => {
-  const [recordId, setRecordId] = useState("");
+  const [recordId, setRecordId] = useState<number>();
   const [keyword, setKeyword] = useState("");
   const [pickupLine, setPickupLine] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -56,8 +57,18 @@ const Home: NextPage = () => {
 
       const data = await response.json();
 
-      setRecordId(data.recordId);
-      setPickupLine(data.result);
+      const result = data.result as string;
+
+      const { data: record, error } = await supabase
+        .from("requests")
+        .insert({ keyword, result })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setRecordId(record?.id);
+      setPickupLine(result);
     } catch (error) {
       console.error(error);
     } finally {
@@ -69,20 +80,15 @@ const Home: NextPage = () => {
     setIsLoading(true);
 
     try {
-      await toast.promise(
-        fetch("/api/feedback", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ recordId, feedback }),
-        }),
-        {
-          loading: `Submitting feedback...`,
-          success: `Thanks for the feedback!`,
-          error: `Oops... something went wrong!`,
-        }
-      );
+      const { data, error } = await supabase
+        .from("requests")
+        .upsert({ id: recordId, result: pickupLine, feedback })
+        .select()
+        .single();
+
+      setRecordId(data?.id);
+
+      if (error) throw error;
     } catch (error) {
       console.error(error);
     } finally {
@@ -109,10 +115,26 @@ const Home: NextPage = () => {
 
             <div className="mt-8 flex items-center justify-between">
               <div className="space-x-2">
-                <button onClick={() => submitFeedback("liked")}>
+                <button
+                  onClick={async () =>
+                    await toast.promise(submitFeedback("liked"), {
+                      loading: `Submitting feedback...`,
+                      success: `Glad you liked the pickup line!`,
+                      error: `Oops... something went wrong!`,
+                    })
+                  }
+                >
                   <TbThumbUp className="h-6 w-6" />
                 </button>
-                <button onClick={() => submitFeedback("disliked")}>
+                <button
+                  onClick={async () =>
+                    await toast.promise(submitFeedback("disliked"), {
+                      loading: `Submitting feedback...`,
+                      success: `We're sorry you didn't like the pickup line. We'll improve on it!`,
+                      error: `Oops... something went wrong!`,
+                    })
+                  }
+                >
                   <TbThumbDown className="h-6 w-6" />
                 </button>
               </div>
