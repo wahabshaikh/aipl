@@ -10,7 +10,7 @@
   }
 
   .btn-primary {
-    @apply bg-brand px-8 py-4 text-2xl font-bold text-white shadow-lg shadow-brand/50 hover:shadow-none;
+    @apply bg-brand px-8 py-4 text-lg font-medium text-white shadow-lg shadow-brand/50 hover:shadow-none sm:text-2xl;
   }
 
   .wrapper {

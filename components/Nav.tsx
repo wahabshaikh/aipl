@@ -3,20 +3,20 @@ import React from "react";
 
 export default function Nav() {
   return (
-    <nav className="wrapper sticky top-0 flex items-center justify-between bg-white">
-      <Link
-        href="/"
-        className="whitespace-nowrap text-base font-medium sm:text-2xl"
-      >
-        <span className="text-brand">😘AI</span>
-        PickupLines
+    <nav className="sticky top-0 mx-auto flex w-full max-w-7xl items-center justify-between bg-white px-8 sm:px-12">
+      <Link href="/">
+        <img
+          src="/images/aipickuplines.png"
+          alt="aipickuplines"
+          className="-ml-6 h-24 w-auto"
+        />
       </Link>
       <a
         href="https://gumroad.com/"
         target="_blank"
-        className="btn border-2 border-brand px-4 py-2 text-xs font-medium text-brand hover:bg-brand/10 sm:text-base"
+        className="btn whitespace-nowrap border-2 border-brand px-4 py-2 text-xs font-medium text-brand hover:bg-brand/10 sm:text-base"
       >
-        buy on gumroad
+        get the guide
       </a>
     </nav>
   );

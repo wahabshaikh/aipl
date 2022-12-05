@@ -11,7 +11,7 @@ module.exports = {
         brand: "#FD3A73",
       },
       fontFamily: {
-        sans: ["Manrope", "sans-serif"],
+        sans: ["Satoshi", "Manrope", "sans-serif"],
       },
     },
   },

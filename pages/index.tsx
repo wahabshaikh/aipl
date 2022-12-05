@@ -1,26 +1,24 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import { FormEventHandler, useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import toast from "react-hot-toast";
-import { TbThumbUp, TbThumbDown } from "react-icons/tb";
-import {
-  TwitterShareButton,
-  TwitterIcon,
-  FacebookShareButton,
-  FacebookIcon,
-  TelegramShareButton,
-  TelegramIcon,
-  WhatsappShareButton,
-  WhatsappIcon,
-  RedditShareButton,
-  RedditIcon,
-} from "react-share";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { PICKUP_LINES } from "../data/pickup-lines";
 import Seo from "../components/Seo";
-import { FiCopy } from "react-icons/fi";
+import {
+  TbBrandFacebook,
+  TbBrandTwitter,
+  TbBrandWhatsapp,
+  TbCopy,
+  TbThumbDown,
+  TbThumbUp,
+} from "react-icons/tb";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
 
 const Home: NextPage = () => {
   const [recordId, setRecordId] = useState("");
@@ -50,8 +48,8 @@ const Home: NextPage = () => {
           body: JSON.stringify({ keyword }),
         }),
         {
-          loading: `Generating a pickup line...`,
-          success: `Your pickup line is generated!`,
+          loading: `Generating a pickup line for you...`,
+          success: `It's easy to be cheesy now!`,
           error: `Oops... something went wrong!`,
         }
       );
@@ -81,7 +79,7 @@ const Home: NextPage = () => {
         }),
         {
           loading: `Submitting feedback...`,
-          success: `Your feedback has been submitted!`,
+          success: `Thanks for the feedback!`,
           error: `Oops... something went wrong!`,
         }
       );
@@ -99,58 +97,50 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col justify-between">
+    <div className="flex min-h-screen w-full flex-col">
       <Seo />
 
       <Nav />
 
-      <main className="wrapper grid flex-1 gap-16 py-8 sm:grid-cols-2">
-        <section className="flex h-full w-full items-center rounded-[20px] bg-brand px-8 py-6 text-3xl font-bold text-white shadow-lg shadow-brand">
+      <main className="wrapper grid flex-1 gap-16 py-8 lg:grid-cols-2">
+        <section className="flex h-full w-full items-center rounded-[20px] bg-brand px-8 py-6 text-white shadow-lg shadow-brand/50">
           <div className="flex h-full flex-col justify-between">
-            <p className="my-auto">
-              {pickupLine}{" "}
-              <CopyToClipboard
-                text={pickupLine}
-                onCopy={() => toast.success("Copied to clipboard!")}
-              >
-                <button>
-                  <FiCopy className="h-6 w-6" />
-                </button>
-              </CopyToClipboard>
-            </p>
-            <div className="flex items-center justify-between">
+            <p className="my-auto text-2xl font-bold">{pickupLine}</p>
+
+            <div className="mt-8 flex items-center justify-between">
               <div className="space-x-2">
+                <button onClick={() => submitFeedback("liked")}>
+                  <TbThumbUp className="h-6 w-6" />
+                </button>
+                <button onClick={() => submitFeedback("disliked")}>
+                  <TbThumbDown className="h-6 w-6" />
+                </button>
+              </div>
+              <div className="space-x-2">
+                <CopyToClipboard
+                  text={pickupLine}
+                  onCopy={() => toast.success("Copied to clipboard!")}
+                >
+                  <button>
+                    <TbCopy className="h-6 w-6" />
+                  </button>
+                </CopyToClipboard>
+
                 <FacebookShareButton url={shareUrl} quote={pickupLine}>
-                  <FacebookIcon size={32} round />
+                  <TbBrandFacebook className="h-6 w-6" />
                 </FacebookShareButton>
 
                 <TwitterShareButton url={shareUrl} title={pickupLine}>
-                  <TwitterIcon size={32} round />
+                  <TbBrandTwitter className="h-6 w-6" />
                 </TwitterShareButton>
-
-                <TelegramShareButton url={shareUrl} title={pickupLine}>
-                  <TelegramIcon size={32} round />
-                </TelegramShareButton>
 
                 <WhatsappShareButton
                   url={shareUrl}
                   title={pickupLine}
                   separator=":: "
                 >
-                  <WhatsappIcon size={32} round />
+                  <TbBrandWhatsapp className="h-6 w-6" />
                 </WhatsappShareButton>
-
-                <RedditShareButton url={shareUrl} title={pickupLine}>
-                  <RedditIcon size={32} round />
-                </RedditShareButton>
-              </div>
-              <div className="space-x-2">
-                <button onClick={() => submitFeedback("liked")}>
-                  <TbThumbUp className="h-8 w-8" />
-                </button>
-                <button onClick={() => submitFeedback("disliked")}>
-                  <TbThumbDown className="h-8 w-8" />
-                </button>
               </div>
             </div>
           </div>
@@ -184,7 +174,10 @@ const Home: NextPage = () => {
           <fieldset className="border-t border-black">
             <legend className="mx-auto px-4 text-2xl">OR</legend>
             <button
-              onClick={() => setPickupLine(getRandomPickupLine())}
+              onClick={() => {
+                setKeyword("");
+                setPickupLine(getRandomPickupLine());
+              }}
               className="btn btn-primary mt-4 w-full"
               disabled={isLoading}
             >
