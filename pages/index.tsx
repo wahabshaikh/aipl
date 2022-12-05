@@ -109,7 +109,7 @@ const Home: NextPage = () => {
       <Nav />
 
       <main className="wrapper grid h-full w-full flex-1 gap-16 py-8 lg:grid-cols-2">
-        <section className="flex h-full w-full items-center rounded-[20px] bg-brand px-8 py-6 text-white shadow-lg shadow-brand/50">
+        <section className="flex h-full w-full items-center justify-center rounded-[20px] bg-brand px-8 py-6 text-white shadow-lg shadow-brand/50">
           <div className="flex h-full flex-col justify-between">
             <p className="my-auto text-2xl font-bold">{pickupLine}</p>
 

@@ -34,9 +34,6 @@ export const PICKUP_LINES = [
     result: "Are you a campfire? 'Cause you make me feel toasty warm",
   },
   {
-    result: "Are you a campfire? Cause you are hot and I want to be near you.",
-  },
-  {
     result: "Are you a campfire? Cause you’re smokin’ hot!",
   },
   {
@@ -50,11 +47,11 @@ export const PICKUP_LINES = [
       "Are you a chocolate truffle? Because I want to indulge in your sweetness.",
   },
   {
-    result:
-      "Are you a dictionary? 'Cause you've got so many words I'd love to explore",
+    result: "Are you a dictionary? 'Cause you add meaning to my life.",
   },
   {
-    result: "Are you a dictionary? Cause you add meaning to my life.",
+    result:
+      "Are you a dictionary? 'Cause you've got so many words I'd love to explore",
   },
   {
     result: "Are you a dosa? Cause I want to savor you forever!",
@@ -83,9 +80,6 @@ export const PICKUP_LINES = [
     result: "Are you a hot air balloon? Cause you just took my breath away!",
   },
   {
-    result: "Are you a hot air balloon? Cuz you take my breath away.",
-  },
-  {
     result: "Are you a hot chilli pepper? Because you spice up my life.",
   },
   {
@@ -96,9 +90,6 @@ export const PICKUP_LINES = [
   },
   {
     result: "Are you a laser? 'Cause you're dazzling!",
-  },
-  {
-    result: "Are you a light switch? 'Cause every time I see you, I turn on.",
   },
   {
     result: "Are you a light switch? 'Cause I want to turn you on",
@@ -116,10 +107,6 @@ export const PICKUP_LINES = [
   {
     result:
       "Are you a parking ticket? 'Cause you've got FINE written all over you.",
-  },
-  {
-    result:
-      "Are you a parking ticket? 'Cause you’ve got FINE written all over you.",
   },
   {
     result:
@@ -277,10 +264,6 @@ export const PICKUP_LINES = [
       "Hey baby, my lips are feeling kinda lonely, wanna come over and keep them company?",
   },
   {
-    result:
-      "Hey girl, are you a campfire? Cause you are hot and I want to be near you.",
-  },
-  {
     result: "Hey girl, let's get stuffed like a masala dosa!",
   },
   {
@@ -382,9 +365,6 @@ export const PICKUP_LINES = [
     result: "Is there an airport nearby or is that just my heart taking off?",
   },
   {
-    result: "Is there an airport nearby, or is it just my heart taking off?",
-  },
-  {
     result:
       "Is your body a canvas? Because I want to draw a masterpiece on it with my tongue.",
   },
@@ -399,10 +379,6 @@ export const PICKUP_LINES = [
   {
     result:
       "Is your body a playground? Because I want to explore every inch of it",
-  },
-  {
-    result:
-      "Is your body a playground? Because I want to explore every inch of it.",
   },
   {
     result:
@@ -458,19 +434,7 @@ export const PICKUP_LINES = [
   },
   {
     result:
-      "Is your name a sex toy? Because I want to play with you all night long.",
-  },
-  {
-    result:
       "Is your name a vacuum cleaner? Because you're sucking all the stress out of my life.",
-  },
-  {
-    result:
-      "Is your name a vibrator? Because I want to make you feel things you've never felt before.",
-  },
-  {
-    result:
-      "Is your name a vibrator? Because you're making me feel things I've never felt before.",
   },
   {
     result: "Is your name a whip? Because I want you to take control tonight.",
@@ -487,10 +451,6 @@ export const PICKUP_LINES = [
   },
   {
     result:
-      "Is your name Daisy? Because I have the incredible urge to plant you right here!",
-  },
-  {
-    result:
       "Is your name Daisy? Because I have the sudden urge to plant you right here!",
   },
   {
@@ -503,12 +463,6 @@ export const PICKUP_LINES = [
   {
     result:
       "Is your name Google? Because you have everything I'm searching for.",
-  },
-  {
-    result: "Is your name Google? Cause you have everything I’m searching for.",
-  },
-  {
-    result: "Is your name Google? Cuz you got me feeling lost in your eyes.",
   },
   {
     result:
@@ -533,7 +487,7 @@ export const PICKUP_LINES = [
     result: "Is your name Summer? Because you're hot!",
   },
   {
-    result: "Is your name Wi-fi? Cause I'm feelin' a connection.",
+    result: "Is your name Wi-Fi? Because I'm feeling a connection.",
   },
   {
     result: "Is your nickname Chapstick? 'Cause you make my lips so sweet.",
@@ -546,9 +500,6 @@ export const PICKUP_LINES = [
   },
   {
     result: "Let's make like a fabric softener and Snuggle.",
-  },
-  {
-    result: "Let's make like fabric softener and snuggle.",
   },
   {
     result: "Suit up! It's time for a night you'll never forget.",
@@ -573,9 +524,6 @@ export const PICKUP_LINES = [
   {
     result:
       "Will you be my jalapeno popper? Because I think we'd be a spicy combination.",
-  },
-  {
-    result: "Write me a few anime titles.",
   },
   {
     result: "You must be a broom, because you just swept me off my feet.",
