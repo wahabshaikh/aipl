@@ -40,6 +40,7 @@ const Home: NextPage = () => {
 
   const generatePickupLine = async (keyword: string) => {
     setIsLoading(true);
+    setCount(count + 1);
 
     try {
       const data = await toast.promise(
@@ -53,7 +54,7 @@ const Home: NextPage = () => {
         {
           loading: `Generating a pickup line for you...`,
           success: `Your pickup line is ready. It's easy to be cheesy now!`,
-          error: `Oops! Too much load currently... please try 'Surprise Me!' in the meanwhile!`,
+          error: `We're witnessing heavy traffic, please try again in a minute. You can try 'Surprise Me!' in the interim.`,
         }
       );
 
@@ -61,7 +62,7 @@ const Home: NextPage = () => {
 
       if (!result)
         toast.error(
-          `Oops! Too much load currently... please try 'Surprise Me!' in the meanwhile!`
+          `We're witnessing heavy traffic, please try again in a minute. You can try 'Surprise Me!' in the interim.`
         );
 
       const { data: record, error } = await supabase
@@ -78,7 +79,6 @@ const Home: NextPage = () => {
       console.error(error);
     } finally {
       setIsLoading(false);
-      setCount(count + 1);
     }
   };
 
