@@ -4,7 +4,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import toast from "react-hot-toast";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import { PICKUP_LINES } from "../data/pickup-lines";
 import Seo from "../components/Seo";
 import {
   TbBrandFacebook,
@@ -32,11 +31,14 @@ const Home: NextPage = () => {
   const shareUrl = "https://aipickuplines.com";
 
   useEffect(() => {
-    setPickupLine(getRandomPickupLine());
+    getRandomPickupLine();
   }, []);
 
-  const getRandomPickupLine = () =>
-    PICKUP_LINES[Math.floor(Math.random() * PICKUP_LINES.length)].result;
+  const getRandomPickupLine = async () => {
+    const data = await fetch("/api/surprise-me").then((res) => res.json());
+    const pickupLine = data.result as string;
+    setPickupLine(pickupLine);
+  };
 
   const generatePickupLine = async (keyword: string) => {
     setIsLoading(true);
@@ -215,7 +217,7 @@ const Home: NextPage = () => {
             <button
               onClick={() => {
                 setKeyword("");
-                setPickupLine(getRandomPickupLine());
+                getRandomPickupLine();
               }}
               className="btn btn-primary mt-4 w-full"
               disabled={isLoading}
