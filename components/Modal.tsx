@@ -86,7 +86,7 @@ export default function Modal({ count }: ModalProps) {
                       ) : (
                         <>
                           Level up your skills: <br />
-                          Get the comprehensive guide!
+                          Get the comprehensive list of pickup lines!
                         </>
                       )}
                     </Dialog.Title>
@@ -94,7 +94,7 @@ export default function Modal({ count }: ModalProps) {
                 </div>
                 <div className="mt-8">
                   {!isCompleted ? (
-                    <form className="space-y-2" onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                       <div>
                         <label htmlFor="name" className="sr-only">
                           Name
@@ -110,7 +110,7 @@ export default function Modal({ count }: ModalProps) {
                           required
                         />
                       </div>
-                      <div>
+                      <div className="mt-2">
                         <label htmlFor="email" className="sr-only">
                           Email
                         </label>
@@ -127,7 +127,7 @@ export default function Modal({ count }: ModalProps) {
                       </div>
                       <button
                         type="submit"
-                        className="btn btn-primary w-full"
+                        className="btn btn-primary mt-4 w-full"
                         disabled={isLoading}
                       >
                         Send me!
@@ -136,7 +136,7 @@ export default function Modal({ count }: ModalProps) {
                   ) : (
                     <a
                       className="btn btn-primary w-full"
-                      href="https://wahabshaikh.gumroad.com/l/aipickuplines"
+                      href="https://wahabshaikh.gumroad.com/l/pickup-lines-by-ai"
                       target="_blank"
                     >
                       Checkout on Gumroad
