@@ -1,7 +1,7 @@
-import { Fragment, useEffect, useState } from "react";
+import { FormEventHandler, Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { HiCheck } from "react-icons/hi2";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 interface ModalProps {
   count: number;
@@ -9,12 +9,44 @@ interface ModalProps {
 
 export default function Modal({ count }: ModalProps) {
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     if (count !== 1 && (count === 2 || count % 5 === 1)) {
       setOpen(true);
     }
   }, [count]);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      await toast.promise(
+        fetch("/api/create-user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email }),
+        }).then((res) => res.json()),
+        {
+          loading: `Sending you the mail...`,
+          success: `Email sent successfully! Please check your inbox.`,
+          error: `Oops... something went wrong! Please try again.`,
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+      setIsCompleted(true);
+    }
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -49,20 +81,67 @@ export default function Modal({ count }: ModalProps) {
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title as="h3" className="text-2xl font-bold">
-                      Lifetime access to 1000s of AI-generated pickup lines!
+                      {!isCompleted ? (
+                        "Get 100 pickup lines for free!"
+                      ) : (
+                        <>
+                          Level up your skills: <br />
+                          Get the comprehensive guide!
+                        </>
+                      )}
                     </Dialog.Title>
                   </div>
                 </div>
-                <div className="mt-6">
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://wahabshaikh.gumroad.com/l/aipickuplines"
-                    className="btn btn-primary w-full"
-                    onClick={() => setOpen(false)}
-                  >
-                    Get it now!
-                  </a>
+                <div className="mt-8">
+                  {!isCompleted ? (
+                    <form className="space-y-2" onSubmit={handleSubmit}>
+                      <div>
+                        <label htmlFor="name" className="sr-only">
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          className="block w-full rounded-2xl border-2 border-black/5 bg-black/5 p-4 focus:border-brand focus:ring-brand"
+                          placeholder="Enter your name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="sr-only">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          className="block w-full rounded-2xl border-2 border-black/5 bg-black/5 p-4 focus:border-brand focus:ring-brand"
+                          placeholder="Enter your email address"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="btn btn-primary w-full"
+                        disabled={isLoading}
+                      >
+                        Send me!
+                      </button>
+                    </form>
+                  ) : (
+                    <a
+                      className="btn btn-primary w-full"
+                      href="https://wahabshaikh.gumroad.com/l/aipickuplines"
+                      target="_blank"
+                    >
+                      Checkout on Gumroad
+                    </a>
+                  )}
                 </div>
               </Dialog.Panel>
             </Transition.Child>

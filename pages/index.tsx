@@ -215,9 +215,17 @@ const Home: NextPage = () => {
           <fieldset className="border-t border-black">
             <legend className="mx-auto px-4 text-2xl">OR</legend>
             <button
-              onClick={() => {
+              onClick={async () => {
                 setKeyword("");
-                getRandomPickupLine();
+                setIsLoading(true);
+                try {
+                  await getRandomPickupLine();
+                } catch (error) {
+                  console.error(error);
+                } finally {
+                  setIsLoading(false);
+                  setCount(count + 1);
+                }
               }}
               className="btn btn-primary mt-4 w-full"
               disabled={isLoading}
