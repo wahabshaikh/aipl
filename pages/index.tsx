@@ -67,7 +67,7 @@ const Home: NextPage = () => {
         );
 
       const { data: record, error } = await supabase
-        .from("requests")
+        .from("pickup_lines")
         .insert({ keyword, result })
         .select()
         .single();
@@ -89,7 +89,7 @@ const Home: NextPage = () => {
 
     try {
       const { data, error } = await supabase
-        .from("requests")
+        .from("pickup_lines")
         .upsert({ id: recordId, result: pickupLine, feedback })
         .select()
         .single();
