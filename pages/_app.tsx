@@ -9,17 +9,16 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Script
-        strategy="lazyOnload"
         src="https://www.googletagmanager.com/gtag/js?id=G-6SGJEJRLQJ"
+        strategy="afterInteractive"
       />
-      <Script strategy="lazyOnload">
+      <Script id="google-analytics" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
+          function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-6SGJEJRLQJ', {
-          page_path: window.location.pathname,
-          });
+
+          gtag('config', 'G-6SGJEJRLQJ');
         `}
       </Script>
       <Component {...pageProps} />
