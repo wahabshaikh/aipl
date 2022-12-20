@@ -114,6 +114,17 @@ const Home: NextPage = () => {
     <div className="flex min-h-screen w-full flex-col">
       <Seo />
 
+      <a
+        href="https://avatarize.club"
+        target="_blank"
+        className="bg-brand p-4 text-center text-sm font-bold text-white"
+      >
+        Increase your matches by 70% with special Dating Avatars at{" "}
+        <span className="text-black underline">Avatarize</span>. Use code{" "}
+        <span className="font-medium text-black">AIPICKUPLINES25</span> for a
+        cool 25%. Limited Period Offer. Now!
+      </a>
+
       <Nav />
 
       <main className="wrapper grid h-full w-full flex-1 gap-16 py-8 lg:grid-cols-2">
