@@ -82,7 +82,7 @@ export default function Modal({ count }: ModalProps) {
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title as="h3" className="text-2xl font-bold">
                       {!isCompleted ? (
-                        "Get 100 pickup lines for free!"
+                        "Get 100 pickup lines!"
                       ) : (
                         <>
                           Level up your skills: <br />

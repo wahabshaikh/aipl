@@ -5,7 +5,7 @@ const defaultMeta = {
   title: "AI Pickup Lines",
   siteName: "AI Pickup Lines",
   description:
-    "It's easy to be cheesy now. Never miss out on any chance of flirting, enter the catchwords and always have something to lead on!",
+    "Generate the most clever, funny, and smooth pickup lines that are guaranteed to make anyone swoon. Say goodbye to awkward silences and hello to a successful dating life with the AI-powered pickup lines generator!",
   url: "https://aipickuplines.com",
   type: "website",
   robots: "follow, index",

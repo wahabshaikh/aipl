@@ -17,7 +17,7 @@ export default function Nav() {
         target="_blank"
         className="btn whitespace-nowrap border-2 border-brand px-4 py-2 text-xs font-medium text-brand hover:bg-brand/10 sm:text-base"
       >
-        get 100 pickup lines free!
+        get 100 pickup lines!
       </a>
     </nav>
   );

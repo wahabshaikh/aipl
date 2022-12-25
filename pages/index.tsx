@@ -117,12 +117,12 @@ const Home: NextPage = () => {
       <a
         href="https://avatarize.club"
         target="_blank"
-        className="bg-brand p-4 text-center text-sm font-bold text-white"
+        className="bg-brand p-2 text-center text-xs font-medium text-white"
       >
         Increase your matches by 70% with special Dating Avatars at{" "}
-        <span className="text-black underline">Avatarize</span>. Use code{" "}
-        <span className="font-medium text-black">AIPICKUPLINES25</span> for a
-        cool 25%. Limited Period Offer. Now!
+        <span>Avatarize.Club</span>. Use code{" "}
+        <span className="font-bold">AIPICKUPLINES25</span> for a cool 25%.
+        Limited Period Offer. Now!
       </a>
 
       <Nav />
