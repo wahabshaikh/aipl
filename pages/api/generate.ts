@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
-import { supabase } from "../../lib/supabase";
+import { PICKUP_LINES } from "../../data/pickup-lines";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -15,18 +15,14 @@ export default async function handler(
 ) {
   try {
     const keyword = req.body.keyword as string;
+    const lowercaseKeyword = keyword.toLowerCase();
 
-    const { data, error } = await supabase
-      .from("pickup_lines")
-      .select("result")
-      .eq("keyword", keyword);
+    const results = PICKUP_LINES.filter(
+      ({ keyword }) => keyword === lowercaseKeyword
+    );
 
-    if (error) throw error;
-
-    if (data && data.length > 0) {
-      const filteredData = data.filter(({ result }) => result != "");
-      const result =
-        filteredData[Math.floor(Math.random() * filteredData.length)].result;
+    if (results && results.length > 0) {
+      const result = results[Math.floor(Math.random() * results.length)].result;
 
       res.status(200).json({ result });
     } else {
