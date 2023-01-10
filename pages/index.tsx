@@ -260,7 +260,7 @@ const Home: NextPage = () => {
               target="_blank"
             >
               <img
-                src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=369828&theme=light&period=weekly&topic=Artificial Intelligence"
+                src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=369828&theme=light&period=weekly&topic_id=268"
                 alt="AI&#0032;Pickup&#0032;Lines&#0032;Generator - Smoothest&#0032;pickup&#0032;lines&#0032;ever&#0032;&#0045;&#0032;powered&#0032;by&#0032;AI | Product Hunt"
                 className="h-full w-full"
               />
