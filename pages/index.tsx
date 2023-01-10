@@ -1,25 +1,16 @@
 import type { NextPage } from "next";
 import { FormEventHandler, useEffect, useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import toast from "react-hot-toast";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Seo from "../components/Seo";
-import {
-  TbBrandFacebook,
-  TbBrandTwitter,
-  TbBrandWhatsapp,
-  TbCopy,
-  TbThumbDown,
-  TbThumbUp,
-} from "react-icons/tb";
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-} from "react-share";
+import { TbThumbDown, TbThumbUp } from "react-icons/tb";
+import axios from "axios";
 import { supabase } from "../lib/supabase";
 import Modal from "../components/Modal";
+import ProductHuntBadges from "../components/ProductHuntBadges";
+import Banner from "../components/Banner";
+import Toolbar from "../components/Toolbar";
 
 const Home: NextPage = () => {
   const [recordId, setRecordId] = useState<number>();
@@ -28,14 +19,12 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(0);
 
-  const shareUrl = "https://aipickuplines.com";
-
   useEffect(() => {
     getRandomPickupLine();
   }, []);
 
   const getRandomPickupLine = async () => {
-    const data = await fetch("/api/surprise-me").then((res) => res.json());
+    const { data } = await axios.get("/api/surprise-me");
     const pickupLine = data.result as string;
     setPickupLine(pickupLine);
   };
@@ -44,18 +33,13 @@ const Home: NextPage = () => {
     setIsLoading(true);
 
     try {
-      const data = await toast.promise(
-        fetch("/api/generate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ keyword }),
-        }).then((res) => res.json()),
+      const { data } = await toast.promise(
+        axios.post("/api/generate", { keyword }),
         {
-          loading: `Generating a pickup line for you...`,
-          success: `Your pickup line is ready. It's easy to be cheesy now!`,
-          error: `We're witnessing heavy traffic, please try again in a minute. You can try 'Surprise Me!' in the interim.`,
+          loading: "Generating a pickup line for you...",
+          success: "Your pickup line is ready. It's easy to be cheesy now!",
+          error:
+            "We're witnessing heavy traffic, please try again in a minute. You can try 'Surprise Me!' in the interim.",
         }
       );
 
@@ -63,7 +47,7 @@ const Home: NextPage = () => {
 
       if (!result)
         toast.error(
-          `We're witnessing heavy traffic, please try again in a minute. You can try 'Surprise Me!' in the interim.`
+          "We're witnessing heavy traffic, please try again in a minute. You can try 'Surprise Me!' in the interim."
         );
 
       const { data: record, error } = await supabase
@@ -114,16 +98,7 @@ const Home: NextPage = () => {
     <div className="flex min-h-screen w-full flex-col">
       <Seo />
 
-      <a
-        href="https://avatarize.club"
-        target="_blank"
-        className="bg-brand p-2 text-center text-xs font-medium text-white"
-      >
-        Increase your matches by 70% with special Dating Avatars at{" "}
-        <span>Avatarize.Club</span>. Use code{" "}
-        <span className="font-bold">AIPICKUPLINES25</span> for a cool 25%.
-        Limited Period Offer. Now!
-      </a>
+      <Banner />
 
       <Nav />
 
@@ -159,41 +134,8 @@ const Home: NextPage = () => {
                   <TbThumbDown className="h-6 w-6" />
                 </button>
               </div>
-              <div className="space-x-2">
-                <CopyToClipboard
-                  text={pickupLine}
-                  onCopy={() => toast.success("Copied to clipboard!")}
-                >
-                  <button data-tip="Copy">
-                    <TbCopy className="h-6 w-6" />
-                  </button>
-                </CopyToClipboard>
 
-                <FacebookShareButton
-                  data-tip="Share on Facebook"
-                  url={shareUrl}
-                  quote={pickupLine}
-                >
-                  <TbBrandFacebook className="h-6 w-6" />
-                </FacebookShareButton>
-
-                <TwitterShareButton
-                  data-tip="Share on Twitter"
-                  url={shareUrl}
-                  title={pickupLine}
-                >
-                  <TbBrandTwitter className="h-6 w-6" />
-                </TwitterShareButton>
-
-                <WhatsappShareButton
-                  data-tip="Share on WhatsApp"
-                  url={shareUrl}
-                  title={pickupLine}
-                  separator=":: "
-                >
-                  <TbBrandWhatsapp className="h-6 w-6" />
-                </WhatsappShareButton>
-              </div>
+              <Toolbar pickupLine={pickupLine} />
             </div>
           </div>
         </section>
@@ -244,28 +186,7 @@ const Home: NextPage = () => {
               Surprise me!
             </button>
           </fieldset>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <a
-              href="https://www.producthunt.com/posts/ai-pickup-lines-generator?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-ai&#0045;pickup&#0045;lines&#0045;generator"
-              target="_blank"
-            >
-              <img
-                src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=369828&theme=light&period=daily"
-                alt="AI&#0032;Pickup&#0032;Lines&#0032;Generator - Smoothest&#0032;pickup&#0032;lines&#0032;ever&#0032;&#0045;&#0032;powered&#0032;by&#0032;AI | Product Hunt"
-                className="h-full w-full"
-              />
-            </a>
-            <a
-              href="https://www.producthunt.com/posts/ai-pickup-lines-generator?utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-ai&#0045;pickup&#0045;lines&#0045;generator"
-              target="_blank"
-            >
-              <img
-                src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=369828&theme=light&period=weekly&topic_id=268"
-                alt="AI&#0032;Pickup&#0032;Lines&#0032;Generator - Smoothest&#0032;pickup&#0032;lines&#0032;ever&#0032;&#0045;&#0032;powered&#0032;by&#0032;AI | Product Hunt"
-                className="h-full w-full"
-              />
-            </a>
-          </div>
+          <ProductHuntBadges />
         </section>
       </main>
       <Modal count={count} />
