@@ -1,6 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
+
+export const config = {
+  runtime: "edge",
+};
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -8,12 +12,16 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextRequest): Promise<Response> {
   try {
-    const message = req.body.message as string;
+    const { message } = (await req.json()) as {
+      message?: string;
+    };
+
+    if (!message) {
+      return new Response("No message in the request", { status: 400 });
+    }
+
     console.log(message);
 
     const prompt = `
@@ -58,25 +66,42 @@ User: ${message}
 Shahrukh Khan:
     `;
 
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt,
-      temperature: 0.7,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-      best_of: 1,
-      max_tokens: 256,
-    });
+    const completion = await fetch("https://api.openai.com/v1/completions", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+      },
+      method: "POST",
+      body: JSON.stringify({
+        model: "text-davinci-003",
+        prompt,
+        temperature: 0.7,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        best_of: 1,
+        max_tokens: 256,
+      }),
+    }).then((res) => res.json());
 
-    const result = completion.data.choices[0].text?.trim();
+    const result = completion.choices[0].text?.trim();
     if (!result) throw new Error(`No result found!`);
 
     console.log(result);
 
-    res.status(200).json({ result });
+    return new Response(
+      JSON.stringify({
+        result,
+      }),
+      {
+        status: 200,
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
   } catch (error: any) {
     console.error(error.message);
-    res.status(500).end();
+    return new Response(error.message, { status: 500 });
   }
 }
