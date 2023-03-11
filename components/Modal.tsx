@@ -15,6 +15,7 @@ export default function Modal({ count }: ModalProps) {
   const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
+    // Feel free to update the frequency at which the modal pops up. Currently it pops up after the 2nd usage, and every 5 subsequent usages thereafter.
     if (count !== 1 && (count === 2 || count % 5 === 1)) {
       setOpen(true);
     }
@@ -82,8 +83,10 @@ export default function Modal({ count }: ModalProps) {
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title as="h3" className="text-2xl font-bold">
                       {!isCompleted ? (
+                        // Feel free to update the default modal screen title
                         "Get 100 pickup lines!"
                       ) : (
+                        // Feel free to update the follow up modal screen title
                         <>
                           Level up your skills: <br />
                           Get the comprehensive list of pickup lines!
@@ -94,6 +97,7 @@ export default function Modal({ count }: ModalProps) {
                 </div>
                 <div className="mt-8">
                   {!isCompleted ? (
+                    // Feel free to update the default modal screen body. Currently it shows a form to collect the user's name and email. The data is saved in our Airtable Base and an email is sent via Airtable Automation.
                     <form onSubmit={handleSubmit}>
                       <div>
                         <label htmlFor="name" className="sr-only">
@@ -134,6 +138,7 @@ export default function Modal({ count }: ModalProps) {
                       </button>
                     </form>
                   ) : (
+                    // Feel free to update the follow up modal screen body. Currently it shows a CTA button that redirects to our Gumroad page.
                     <a
                       className="btn btn-primary w-full"
                       href="https://wahabshaikh.gumroad.com/l/pickup-lines-by-ai"

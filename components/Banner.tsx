@@ -2,6 +2,7 @@ import React from "react";
 
 export default function Banner() {
   return (
+    // Feel free to update the banner's copy and the url that it redirects to when you click on it
     <a
       href="https://avatarize.club"
       target="_blank"

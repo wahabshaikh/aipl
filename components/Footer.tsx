@@ -2,6 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
+    // Feel free to update the footer's copy
     <footer className="mx-auto mt-16 w-full max-w-7xl px-8 pb-4 text-center text-black/70 sm:px-12">
       <p>
         Made with ❤️ by{" "}

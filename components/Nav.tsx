@@ -19,6 +19,7 @@ export default function Nav() {
           Flirt like SRK!
         </Link> */}
 
+        {/* Feel free to update the CTA button */}
         <a
           data-tip="Lifetime access to AI-generated pickup lines"
           href="https://wahabshaikh.gumroad.com/l/pickup-lines-by-ai"
