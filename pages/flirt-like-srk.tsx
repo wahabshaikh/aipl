@@ -47,11 +47,11 @@ const FlirtLikeSRK: NextPage = () => {
 
       setPickupLine(result);
 
-      const { error } = await supabase
-        .from("pickup_lines_srk")
-        .insert({ message, result });
+      // const { error } = await supabase
+      //   .from("pickup_lines_srk")
+      //   .insert({ message, result });
 
-      if (error) throw error;
+      // if (error) throw error;
     } catch (error) {
       console.error(error);
     } finally {
