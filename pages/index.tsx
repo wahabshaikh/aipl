@@ -50,15 +50,15 @@ const Home: NextPage = () => {
           "We're witnessing heavy traffic, please try again in a minute. You can try 'Surprise Me!' in the interim."
         );
 
-      const { data: record, error } = await supabase
-        .from("pickup_lines")
-        .insert({ keyword, result })
-        .select()
-        .single();
+      // const { data: record, error } = await supabase
+      //   .from("pickup_lines")
+      //   .insert({ keyword, result })
+      //   .select()
+      //   .single();
 
-      if (error) throw error;
+      // if (error) throw error;
 
-      setRecordId(record?.id);
+      // setRecordId(record?.id);
       setPickupLine(result);
     } catch (error) {
       console.error(error);
